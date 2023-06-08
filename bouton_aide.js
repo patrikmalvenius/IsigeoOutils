@@ -1,6 +1,6 @@
 (function () {
-  const urlTuto = 'URL à ton tuto, si tu en as. Sinon, vaut mieux supprimer la code qui crée le div pour afficher tuto';
-  const urlImgFleche = 'URL à ton SVG d\'une jolie flêche';
+ 	 const urlTuto = 'URL à ton tuto, si tu en as. Sinon, vaut mieux supprimer la code qui crée le div pour afficher tuto';
+  	const urlImgFleche = 'URL à ton SVG d\'une jolie flêche';
 	const aideElements = {
 		'layercontrol': {'text':'Modifier l\'affichage des couches','type':'l'}, 
 		'localise' : {'text':'Localisation et requêteur','type':'l'}, 
@@ -17,7 +17,7 @@
 	};
 	const aideIcon = document.createElement('i');
 	const aideButton = document.createElement('Button');
-    const modal = document.createElement('div');
+	const modal = document.createElement('div');
 
 	const toolbar = document.getElementById('toolsbar');
 
@@ -26,14 +26,14 @@
 	aideButton.setAttribute('type', 'aideButton');
 	aideIcon.setAttribute('class', 'icon icon-question-fill ico-h1')
 	aideButton.setAttribute('class', 'rounded-0 sb-toggle-left btn btn-light border box-h1')
-    aideButton.onclick = showModal;
+	aideButton.onclick = showModal;
 	toolbar.appendChild(aideButton);
 	function setStyle(el, styles) {
 		for (let style in styles) {
 			el.style[style] = styles[style];
 		};
 	};
-	
+
 	function drawImgAndText(el, imgTop, left, imgheight, imgwidth, rotate) {
 		let imgTransStyle = {};
 		let textTransStyle = {};
@@ -53,12 +53,12 @@
 					};
 		const imgFleche = document.createElement('div');
 		const textDiv = document.createElement('div');
-		
+
 		textDiv.innerText = aideElements[el]['text']
-	
+
 		if (rotate) {
 					imgTransStyle = {...imgStyle, ...{
-	
+
 						'transform' : 'rotate(' + rotate[0] + 'deg)' + rotate[1],
 						'transform-origin': 'top left',
 					}};	
@@ -76,17 +76,17 @@
 		setStyle(imgFleche, imgTransStyle);
 		modal.appendChild(imgFleche);
 		modal.appendChild(textDiv);
-	
+
 	}
-	
+
 	function getBoundingBox(element) {
 	  const box = element.getBoundingClientRect();
 	  const ret = {};
-	
+
 	  for (const prop in box) {
 		ret[prop] = box[prop]
 	  };
-	
+
 	  ret.xCenter = (box.left + box.right) / 2;
 	  ret.yCenter = (box.top + box.bottom) / 2;
 	  return ret;
@@ -97,22 +97,22 @@
 			position: 'center',
 		   affichage: 'medium'
 		  });
-    //parce qu'il faut faire des bêtises pour mieux montrer notre tuto. A améliorer (jamais)
+	//parce qu'il faut faire des bêtises pour mieux montrer notre tuto. A améliorer (jamais)
 		  document.getElementById('tutocompletaide').style.width = '51em';
 	}
 
 	function removeModal() {
-        while (modal.firstChild) {
-            modal.removeChild(modal.firstChild)
-        }
-        modal.remove();
+	while (modal.firstChild) {
+	    modal.removeChild(modal.firstChild)
+	}
+	modal.remove();
 	};
-	
+
 	function showInfo(event) {
 		document.getElementById('apgl64aidecontainer').innerText = aideElements[event.target.getAttribute('elName')]['text'];
 	};
-	
-function showModal() {
+
+	function showModal() {
 
 	const modalStyle = {
 		'position':'absolute',
@@ -125,143 +125,143 @@ function showModal() {
 		'zIndex': '9000',
 	};
 	const desktopSize = window.screen.availWidth > 800;
-    modal.id = 'MODAL';
+	modal.id = 'MODAL';
 
 	setStyle(modal, modalStyle);
-    document.body.prepend(modal);
-    if (desktopSize) {
-        modal.addEventListener("click", removeModal);
-        let afficheAideComplet = document.createElement('button');	
-        const afficheAideCompletStyle = {
-            'position': 'absolute',
-            'backgroundColor': '#3a423d',
-            'border': '2px solid #fff',
-            'color': 'hsla(360,100%,100%,1)',
-            'fontSize': '1em',
-            'top' : '5%',
-            'left' : '50%',
-            'width': '30%',
-            'margin': '0 auto',
-            'transform': 'translate(-50%,-50%)',
-            'zIndex': '12000',
-            'padding': '0.2em',
-            'fontFamily': 'News Cycle',
-        };
-        afficheAideComplet.innerText = 'Cliquez ici pour afficher le tutoriel interactif complet!';
-        afficheAideComplet.addEventListener("click", showTuto);
-        setStyle(afficheAideComplet, afficheAideCompletStyle);
-        modal.appendChild(afficheAideComplet);
-        //afficheAideComplet.setAttribute('class', 'rounded-0 sb-toggle-left btn btn-light border box-h1')
-        afficheAideComplet.classList.add('apgl64modalstatics');
-    
-    } else {
-        const helpText = document.createElement('div');
+	document.body.prepend(modal);
+	if (desktopSize) {
+	modal.addEventListener("click", removeModal);
+	let afficheAideComplet = document.createElement('button');	
+	const afficheAideCompletStyle = {
+	    'position': 'absolute',
+	    'backgroundColor': '#3a423d',
+	    'border': '2px solid #fff',
+	    'color': 'hsla(360,100%,100%,1)',
+	    'fontSize': '1em',
+	    'top' : '5%',
+	    'left' : '50%',
+	    'width': '30%',
+	    'margin': '0 auto',
+	    'transform': 'translate(-50%,-50%)',
+	    'zIndex': '12000',
+	    'padding': '0.2em',
+	    'fontFamily': 'News Cycle',
+	};
+	afficheAideComplet.innerText = 'Cliquez ici pour afficher le tutoriel interactif complet!';
+	afficheAideComplet.addEventListener("click", showTuto);
+	setStyle(afficheAideComplet, afficheAideCompletStyle);
+	modal.appendChild(afficheAideComplet);
+	//afficheAideComplet.setAttribute('class', 'rounded-0 sb-toggle-left btn btn-light border box-h1')
+	afficheAideComplet.classList.add('apgl64modalstatics');
 
-        const helpTextStyle = {
-            'backgroundColor': 'hsla(221,9%,11%,.5)',
-            'border': '2px solid #fff',
-            'color': 'hsla(360,100%,100%,.9)',
-            'fontSize': '1.5em',
-            'left': '50%',
-            'position': 'absolute',
-            'display': 'flex',
-            'text-align': 'center',
-            'justify-content': 'center', 
-            'align-items': 'center', 
-            'height' : '32%',
-            'width': '45%',
-            'top': '50%',
-            'transform': 'translate(-50%,-50%)',
-            'padding': '0.5em',
-            'fontFamily': 'News Cycle',
-        };
-        helpText.setAttribute('id', 'apgl64aidecontainer');
-        helpText.classList.add('apgl64modalstatics');
-        helpText.innerText = 'Cliquez sur une cadre pour afficher l\'aide ici';
-        modal.appendChild(helpText);
-        const closeButton = document.createElement('div');
-        const closeButtonStyle = {
-            'backgroundColor': 'hsla(221,9%,11%,.5)',
-            'border': '2px solid #fff',
-            'color': 'hsla(360,100%,100%,.9)',
-            'fontSize': '2em',
-            'left': '75%',
-            'position': 'absolute',
-            'top': '34%',
-            'zIndex': '12000',
-            'padding': '0.2em'
-        };
-    
-        setStyle(helpText, helpTextStyle);
+	} else {
+	const helpText = document.createElement('div');
 
-        closeButton.addEventListener("click", removeModal);
-        closeButton.innerText = 'X';
-        closeButton.classList.add('apgl64modalstatics');
+	const helpTextStyle = {
+	    'backgroundColor': 'hsla(221,9%,11%,.5)',
+	    'border': '2px solid #fff',
+	    'color': 'hsla(360,100%,100%,.9)',
+	    'fontSize': '1.5em',
+	    'left': '50%',
+	    'position': 'absolute',
+	    'display': 'flex',
+	    'text-align': 'center',
+	    'justify-content': 'center', 
+	    'align-items': 'center', 
+	    'height' : '32%',
+	    'width': '45%',
+	    'top': '50%',
+	    'transform': 'translate(-50%,-50%)',
+	    'padding': '0.5em',
+	    'fontFamily': 'News Cycle',
+	};
+	helpText.setAttribute('id', 'apgl64aidecontainer');
+	helpText.classList.add('apgl64modalstatics');
+	helpText.innerText = 'Cliquez sur une cadre pour afficher l\'aide ici';
+	modal.appendChild(helpText);
+	const closeButton = document.createElement('div');
+	const closeButtonStyle = {
+	    'backgroundColor': 'hsla(221,9%,11%,.5)',
+	    'border': '2px solid #fff',
+	    'color': 'hsla(360,100%,100%,.9)',
+	    'fontSize': '2em',
+	    'left': '75%',
+	    'position': 'absolute',
+	    'top': '34%',
+	    'zIndex': '12000',
+	    'padding': '0.2em'
+	};
 
-        setStyle(closeButton, closeButtonStyle);
-        modal.appendChild(closeButton);
-    
-    };
+	setStyle(helpText, helpTextStyle);
 
-	
-    Object.keys(aideElements).forEach((el) => {
-        let domEl = document.getElementById(el);
-        if (!domEl) {
-            domEl = document.querySelector('a[title=\''+el+'\']') || document.querySelector('button[title=\''+el+'\']')
-        };
+	closeButton.addEventListener("click", removeModal);
+	closeButton.innerText = 'X';
+	closeButton.classList.add('apgl64modalstatics');
 
-        if (domEl) {
-            const box = getBoundingBox(domEl)
-            const { left, xCenter, height, width, top } = box
-            let imgwidth, imgheight, rotate;
-            let helpOutline = document.createElement('div');
-            let helpOutlineStyle = {
-                'position': 'absolute', 
-                'height': height + 4 + 'px', 
-                'border': '3px dashed #fff',
-                'width': width + 4 + 'px',
-                'top' : top-2+'px',
-                'left' : left - 2 +'px',
-                'position' : 'absolute',
-                'zIndex' : '10000',
-            };
-            setStyle(helpOutline, helpOutlineStyle);
-            if (!desktopSize) {
-                helpOutline.addEventListener("click", showInfo);
-                helpOutline.setAttribute('elName', el);
-            }
-            if (desktopSize) {
-                switch (aideElements[el].type) {
-                    case 'l':
-                        left = xCenter;
-                        imgwidth = 100;
-                        imgheight = 70;
-                        rotate = false;
-                        imgTop = top + height /2;
-                        break;
-                    case 'r':
-                        imgwidth = 100;
-                        imgheight = 70;
-                        left = xCenter;
-                        imgTop = top + height /2;
-                        rotate = ['180', 'scaleY(-1)', '', imgwidth*1.5 + 'px', imgTop + imgheight/2 +'px', ''];
-                        break;
-                    case 'bl':
-                        imgwidth = 100;
-                        imgheight = 70;
-                        left = xCenter;
-                        imgTop = top + height /2;
-                        rotate = ['270', '', xCenter + 'px', '', imgTop -imgwidth+'px', ''];
-                        break;
-                    default:
-                        break;
-                };	
-                        drawImgAndText(el, imgTop, left, imgheight, imgwidth, rotate);
+	setStyle(closeButton, closeButtonStyle);
+	modal.appendChild(closeButton);
 
-            }
-            modal.appendChild(helpOutline)
-        };
-    });
+	};
+
+
+	Object.keys(aideElements).forEach((el) => {
+	let domEl = document.getElementById(el);
+	if (!domEl) {
+	    domEl = document.querySelector('a[title=\''+el+'\']') || document.querySelector('button[title=\''+el+'\']')
+	};
+
+	if (domEl) {
+	    const box = getBoundingBox(domEl)
+	    const { left, xCenter, height, width, top } = box
+	    let imgwidth, imgheight, rotate;
+	    let helpOutline = document.createElement('div');
+	    let helpOutlineStyle = {
+		'position': 'absolute', 
+		'height': height + 4 + 'px', 
+		'border': '3px dashed #fff',
+		'width': width + 4 + 'px',
+		'top' : top-2+'px',
+		'left' : left - 2 +'px',
+		'position' : 'absolute',
+		'zIndex' : '10000',
+	    };
+	    setStyle(helpOutline, helpOutlineStyle);
+	    if (!desktopSize) {
+		helpOutline.addEventListener("click", showInfo);
+		helpOutline.setAttribute('elName', el);
+	    }
+	    if (desktopSize) {
+		switch (aideElements[el].type) {
+		    case 'l':
+
+			imgwidth = 100;
+			imgheight = 70;
+			rotate = false;
+			imgTop = top + height /2;
+			break;
+		    case 'r':
+			imgwidth = 100;
+			imgheight = 70;
+
+			imgTop = top + height /2;
+			rotate = ['180', 'scaleY(-1)', '', imgwidth*1.5 + 'px', imgTop + imgheight/2 +'px', ''];
+			break;
+		    case 'bl':
+			imgwidth = 100;
+			imgheight = 70;
+
+			imgTop = top + height /2;
+			rotate = ['270', '', xCenter + 'px', '', imgTop -imgwidth+'px', ''];
+			break;
+		    default:
+			break;
+		};	
+			drawImgAndText(el, imgTop, xCenter, imgheight, imgwidth, rotate);
+
+	    }
+	    modal.appendChild(helpOutline)
+	};
+	});
 	};
 })();
 
