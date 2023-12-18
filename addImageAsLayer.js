@@ -61,6 +61,10 @@ Ajout image
 
   scaleRotationElement.addEventListener("change", handleRotationRange, false);
 
+  const changeMapButton = document.querySelector("#cartes");
+
+  changeMapButton.addEventListener("click", closeAll, true);
+
   var vectorSource,
     vectorLayer,
     modify,
@@ -109,6 +113,7 @@ Ajout image
   function handleOpacityRange(e) {
     vectorLayer ? vectorLayer.setOpacity(parseFloat(e.target.value)) : null;
   }
+
   function loadFile(e) {
     e.preventDefault();
 
@@ -204,6 +209,7 @@ Ajout image
     scaleFactor = 1;
   }
   function closeAll() {
+    changeMapButton.removeEventListener("click", closeAll, true);
     resetLayerAndInteractions();
     document.getElementById("fond_isigeo").removeChild(formEl);
     Viewer.map.getView().un("change:resolution", onResolutionChange);
