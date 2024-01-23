@@ -21,3 +21,8 @@ addImageAsLayer is a quick way of letting the user add an image as basis for vac
 The tool lets the user upload a file (image) which gets added as the icon-image of a vectorlayer. The image can be moved, scaled, rotated, and have its transparency changed
 
 Mets la code dans un fiche PHP qui tu appelles avec un fonction launchPHP dans un shortcut, par exemple
+
+## add_wms_cadastre.js
+
+Petit outil pour ajouter le wms ouvert du Cadastre selon la code INSEE rempli
+
