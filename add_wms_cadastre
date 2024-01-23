@@ -1,0 +1,80 @@
+(() => {
+  "use strict";
+  if (document.getElementById("removeApglAddCadastreWms")) {
+    return;
+  }
+
+  const formHtml = `
+
+  <div
+    class="card-header rounded-0 bg-primary text-white text-left py-2">
+Ajout données actuelles de la cadastre
+    <a class="d-flex btn btn-outline-light float-right rounded-circle p-1" ">
+      <span id="removeApglAddCadastreWms" class="icon icon-remove"></span>
+    </a>  </div>      <div>
+                                  <label for="codeInseeForApglAddCadastreWms" style="padding:0px 5px 0px 5px">Code INSEE  </label>
+                   
+                            <input type="number" style="flex-basis:900px"  id="codeInseeForApglAddCadastreWms" />
+ <button id="getApglCadastreWms">Charge la cadastre</button>
+                          </div></div>`;
+
+  let formEl = document.createElement("div");
+  formEl.style.fontFamily = '"News Cycle","Arial Narrow Bold",sans-serif';
+  formEl.classList.add("window");
+  formEl.classList.add("active");
+  formEl.innerHTML = formHtml;
+  formEl.style.position = "relative";
+  formEl.style.width = "400px";
+
+  document.getElementById("fond_isigeo").appendChild(formEl);
+
+  const closeX = document.getElementById("removeApglAddCadastreWms");
+  const loadButton = document.getElementById("getApglCadastreWms");
+  loadButton.addEventListener("click", loadWms);
+
+  const changeMapButton = document.querySelector("#cartes");
+
+  changeMapButton.addEventListener("click", closeAll, true);
+
+  var wmsLayer;
+
+  function loadWms(e) {
+    e.preventDefault();
+    if (wmsLayer) {
+      resetLayer();
+    }
+    const codeInsee = document.getElementById(
+      "codeInseeForApglAddCadastreWms"
+    ).value;
+
+    wmsLayer = new ol.layer.Image({
+      source: new ol.source.ImageWMS({
+        url: "https://inspire.cadastre.gouv.fr/scpc/" + codeInsee + ".wms?",
+        params: {
+          LAYERS:
+            "AMORCES_CAD,LIEUDIT,CP.CadastralParcel,SUBFISCAL,CLOTURE,DETAIL_TOPO,HYDRO,VOIE_COMMUNICATION,BU.Building,BORNE_REPERE",
+        },
+        ratio: 1,
+      }),
+      zIndex: 1000,
+    });
+
+    wmsLayer.set("name", "ApglAddedCadastreWms");
+
+    const len = Viewer.map.getLayers().length;
+    Viewer.map.getLayers().insertAt(len, wmsLayer);
+  }
+
+  function resetLayer() {
+    Viewer.map.removeLayer(wmsLayer);
+
+    wmsLayer = null;
+  }
+  function closeAll() {
+    changeMapButton.removeEventListener("click", closeAll, true);
+    resetLayer();
+    document.getElementById("fond_isigeo").removeChild(formEl);
+    formEl = null;
+  }
+  closeX.addEventListener("click", closeAll);
+})();
